@@ -1,23 +1,32 @@
-<!DOCTYPE HTML>
-<html>
-<body>
-
 <?php
-echo "<h1>Calculator</h1>";
-echo "<br>";
-echo "Type an expression in the following box";
 
+$hi = "1+1";
+$pattern = '/[\+\-\*\/]/';
+
+echo $hi;
 echo "<br>";
 
-$name = "";
-//$name = test_input($_POST["name"]);
+if(validate_input($hi)) {
+    echo "Match found!<br>";
+}
+
+function validate_input($in) {
+    return preg_match("/^[ 0-9\+\-\*\/]+$/", $in, $matches) //only nums/ops.
+        && !preg_match("/[\+\-\*\/][\+\-\*\/]/", $in, $matches);
+}
+//print_r($matches);
+
+$answer = 0;
+$test = "1+2";
+
+$string = 'cup';
+$name = 'coffee';
+$str = 'This is a $string with my $name in it.';
+echo $str . "<br>";
+eval("\$str = \"$str\";");
+echo $str . "<br>";
+
+eval("\$answer = " . $test . ";");
+echo $answer . "<br>";
+
 ?>
-
-<form method="post" action="<?php echo
-htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-      <input type="text" name="name">
-      <input type="submit" name="calculate" value="Calculate">
-</form>
-
-</body>
-</html>
