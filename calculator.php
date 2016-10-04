@@ -16,6 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 function change_input($in) {
     $in = trim($in);
     $in = str_replace("--", "- -", $in);
+    $in = str_replace("+-", "+ -", $in);
+    $in = str_replace("*-", "* -", $in);
+    $in = str_replace("/-", "/ -", $in);
     return $in;
 }
 ?>
