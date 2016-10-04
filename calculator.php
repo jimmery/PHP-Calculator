@@ -14,16 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 //currently this method removes whitespace from beginning and end of input
 function change_input($in) {
-    // not sure what to do here, but apparently we have to turn
-    // 5--5 to 5 - -5, which i guess we can do here.
     $in = trim($in);
     $in = str_replace("--", "- -", $in);
-    
-    //AYYLMAO
-    //    $in = str_replace(". ", "q", $in);
-    //    $in = str_replace(".+", "q", $in);
-    //    $in = str_replace(".*", "q", $in);
-    //    $in = str_replace("./", "q", $in);
     return $in;
 }
 ?>
@@ -47,8 +39,6 @@ elseif(check_divide_by_zero($expr))
 elseif(validate_input($expr))
 {
     echo $expr . " = ";
-
-    //$answer = 0;
     eval("\$answer = " . $expr . ";");
     echo $answer . "<br>";
 } 
@@ -57,14 +47,11 @@ else
     echo "Invalid Input!";
 }
 
-// doesn't need to be a function, but lol. 
 function check_divide_by_zero($in)
 {
     return preg_match("/\/[ ]*0/", $in, $mat);
 }
 
-// verifies stuff.
-// add more here, if necessary (e.g. -- error. ...?)
 function validate_input($in)
 {
     return preg_match("/^[0-9\-]/", $in, $mat) // starts w/ num or neg.
@@ -76,7 +63,6 @@ function validate_input($in)
         ;
 }
     
-
 ?>
 
 </body>
