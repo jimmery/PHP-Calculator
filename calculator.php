@@ -12,11 +12,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $expr = change_input($_GET["expr"]);
 }
 
-
+//currently this method removes whitespace from beginning and end of input
 function change_input($in) {
     // not sure what to do here, but apparently we have to turn
     // 5--5 to 5 - -5, which i guess we can do here.
     $in = trim($in);
+    $in = str_replace("--", "- -", $in);
+    
+    //AYYLMAO
+    //    $in = str_replace(". ", "q", $in);
+    //    $in = str_replace(".+", "q", $in);
+    //    $in = str_replace(".*", "q", $in);
+    //    $in = str_replace("./", "q", $in);
     return $in;
 }
 ?>
@@ -62,8 +69,10 @@ function validate_input($in)
 {
     return preg_match("/^[0-9\-]/", $in, $mat) // starts w/ num or neg.
         && preg_match("/[0-9]$/", $in, $mat) // ends w/ num. 
-        && preg_match("/^[ .0-9\+\-\*\/]+$/", $in, $mat) //only nums/ops.
-        && !preg_match("/[.\+\-\*\/][.\+\-\*\/]/", $in, $mat) //no 2 ops.
+        && preg_match("/^[ \.0-9\+\-\*\/]+$/", $in, $mat) //only nums/ops.
+        && !preg_match("/[\.\+\-\*\/][\.\+\-\*\/]/", $in, $mat) //no 2 ops.
+        && !preg_match("/\.[^0123456789]/", $in, $mat) // no dot followed by nonnum
+        && !(preg_match("/^0+[0-9]+/", $in, $mat) || preg_match("/[ \+\-\*\/]0[0-9]+/", $in, $mat)); //no nonzero nums starting with 0
         ;
 }
     
